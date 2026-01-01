@@ -34,10 +34,12 @@
 
 // export default App
 
-import UserPage from "./pages/UserPage";
+import ArtistPage from "./features/Artist/ArtistPage";
 
 function App() {
-  return <UserPage />;
+  return <>
+    <ArtistPage />
+  </>;
   // return <h1>VITE ok</h1>
 }
 
