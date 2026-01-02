@@ -1,6 +1,5 @@
 import { Table, Button, Space, Popconfirm } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
-import React from 'react';
 
 const ArtistTable = ({ data, loading, onEdit, onDelete }) => {
     const columns = [
@@ -9,13 +8,13 @@ const ArtistTable = ({ data, loading, onEdit, onDelete }) => {
             dataIndex: 'artistId',
             key: 'artistId',
             width: '10%',
-            sorter: (a, b) => a.ArtistId - b.ArtistId,
+            sorter: (a, b) => a.artistId - b.artistId,
         },
         {
             title: 'Artist Name',
             dataIndex: 'name',
             key: 'name',
-            sorter: (a, b) => a.Name.localeCompare(b.Name),
+            sorter: (a, b) => a.name.localeCompare(b.name),
         },
         {
             title: 'Actions',
@@ -32,7 +31,7 @@ const ArtistTable = ({ data, loading, onEdit, onDelete }) => {
                     </Button>
                     <Popconfirm
                         title="Delete this artist?"
-                        onConfirm={() => onDelete(record.ArtistId)}
+                        onConfirm={() => onDelete(record.artistId)}
                         okText="Yes"
                         cancelText="No"
                     >

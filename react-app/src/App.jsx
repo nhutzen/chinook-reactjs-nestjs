@@ -1,46 +1,25 @@
-// import { useState } from 'react'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
-// import './App.css'
-
-// function App() {
-//   const [count, setCount] = useState(0)
-
-//   return (
-//     <>
-//       <div>
-//         <a href="https://vite.dev" target="_blank">
-//           <img src={viteLogo} className="logo" alt="Vite logo" />
-//         </a>
-//         <a href="https://react.dev" target="_blank">
-//           <img src={reactLogo} className="logo react" alt="React logo" />
-//         </a>
-//       </div>
-//       <h1>Vite + React</h1>
-//       <div className="card">
-//         <button onClick={() => setCount((count) => count + 1)}>
-//           count is {count}
-//         </button>
-//         <p>
-//           Edit <code>src/App.jsx</code> and save to test HMR
-//         </p>
-//       </div>
-//       <p className="read-the-docs">
-//         Click on the Vite and React logos to learn more
-//       </p>
-//     </>
-//   )
-// }
-
-// export default App
-
+import AppHeader from "./components/Header";
+import AppFooter from "./components/Footer";
 import ArtistPage from "./features/Artist/ArtistPage";
+import AboutPage from "./features/AboutPage";
+import { Route, Routes } from "react-router-dom";
 
 function App() {
-  return <>
-    <ArtistPage />
-  </>;
-  // return <h1>VITE ok</h1>
+  return (
+    <>
+      <AppHeader />
+    
+      <main style={{ padding: '20px', minHeight: '80vh' }}>
+        <Routes>
+          <Route path="/" element={<div>Welcome to the Home Page</div>} />
+          <Route path="/artists" element={<ArtistPage />} />
+          <Route path="/about" element={<AboutPage />} />
+        </Routes>
+      </main>
+      
+      <AppFooter />
+    </>
+  );
 }
 
 export default App;

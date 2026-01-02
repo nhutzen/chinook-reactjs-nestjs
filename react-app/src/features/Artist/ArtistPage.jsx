@@ -51,7 +51,7 @@ const ArtistPage = () => {
     
 
     return (
-        <Card>
+        <Card style={{width: '100%', marginTop: 20}}>
             <Title level={2}>Quản lý Nghệ sĩ (Chinook)</Title>
             <ArtistTable 
                 data={artists} 
