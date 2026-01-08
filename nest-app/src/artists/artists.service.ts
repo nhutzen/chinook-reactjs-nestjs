@@ -13,23 +13,37 @@ export class ArtistsService {
     private artistRepository: Repository<Artist>,
   ) {}
 
-  create(createArtistDto: CreateArtistDto) {
-    return 'This action adds a new artist';
+  async create(createArtistDto: CreateArtistDto) {
+    const artist = this.artistRepository.create(createArtistDto);
+    return await this.artistRepository.save(artist);
   }
 
   async findAll(): Promise<Artist[]> {
     return await this.artistRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} artist`;
+  async findOne(id: number): Promise<Artist> {
+    const artist = await this.artistRepository.findOneBy({ artistId: id });
+    if (!artist) {
+      throw new Error(`Artist with ID ${id} not found`);
+    }
+    return artist;
   }
 
-  update(id: number, updateArtistDto: UpdateArtistDto) {
-    return `This action updates a #${id} artist`;
+  async update(id: number, updateArtistDto: UpdateArtistDto) {
+    const artist = await this.artistRepository.findOneBy({ artistId: id });
+    return this.artistRepository.save({ ...artist, ...updateArtistDto });
+    // return this.artistRepository.update(id, updateArtistDto);
+    // cach t2 nhanh hơn
+    // update(): Trả về một đối tượng UpdateResult (chứa thông tin như: bao nhiêu hàng đã bị ảnh hưởng - affected). Nó không trả về dữ liệu của Artist sau khi sửa.
+    // save(): Trả về chính đối tượng Entity sau khi đã được lưu vào database.
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} artist`;
+  async remove(id: number) {
+    const artist = await this.artistRepository.findOneBy({ artistId: id });
+    if (!artist) {
+      throw new Error(`Artist with ID ${id} not found`);
+    }
+    return this.artistRepository.delete(id);
   }
 }

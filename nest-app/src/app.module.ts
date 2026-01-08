@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { ArtistsModule } from './artists/artists.module';
 // newly added import
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { AlbumsModule } from './albums/albums.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -16,7 +17,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     entities: [__dirname + '/**/*.entity{.ts,.js}'],
     synchronize: false,
   })
-    , ArtistsModule],
+    , ArtistsModule, AlbumsModule],
   controllers: [AppController],
   providers: [AppService],
 })

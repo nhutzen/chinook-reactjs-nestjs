@@ -13,6 +13,10 @@ const AppHeader = () => {
       label: <Link to="/artists">Artist</Link>,
     },
     {
+      key: "album",
+      label: <Link to="/albums">Album</Link>,
+    },
+    {
       key: "about",
       label: <Link to="/about">About</Link>,
     },
