@@ -1,5 +1,5 @@
 import { Modal, Form, Input } from "antd";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
 const SaveModel = ({ visible, onSave, onCancel, editingArtist }) => {
   const [form] = Form.useForm();

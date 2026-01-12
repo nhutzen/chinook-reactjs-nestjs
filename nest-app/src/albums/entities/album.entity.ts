@@ -8,8 +8,10 @@ export class Album {
     @Column()
     title: string;
 
+    @Column({ nullable: true })
+    artistId: number;
+
     @ManyToOne(() => Artist, (artist) => artist.albums)
     @JoinColumn({ name: 'artistId' })
     artist: Artist;
-
 }

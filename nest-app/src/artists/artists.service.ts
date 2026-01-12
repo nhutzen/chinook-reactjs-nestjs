@@ -3,7 +3,7 @@ import { CreateArtistDto } from './dto/create-artist.dto';
 import { UpdateArtistDto } from './dto/update-artist.dto';
 // newly added imports
 import { Artist } from './entities/artist.entity';
-import { Repository } from 'typeorm';
+import { Like, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
@@ -20,6 +20,12 @@ export class ArtistsService {
 
   async findAll(): Promise<Artist[]> {
     return await this.artistRepository.find();
+  }
+
+  async findByName(name: string): Promise<Artist[]> {
+    return await this.artistRepository.find({
+      where: { name: Like(`%${name}%`) },
+    });
   }
 
   async findOne(id: number): Promise<Artist> {

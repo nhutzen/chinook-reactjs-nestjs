@@ -6,6 +6,11 @@ const albumApi = {
         return axiosClient.get(url);
     },
 
+    search: (keyword) => {
+        const url = `/albums/search?name=${encodeURIComponent(keyword)}`;
+        return axiosClient.get(url);
+    },
+
     getById: (id) => {
         const url = `/albums/${id}`;
         return axiosClient.get(url);

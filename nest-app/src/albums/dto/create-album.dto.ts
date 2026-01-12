@@ -1,1 +1,4 @@
-export class CreateAlbumDto {}
+export class CreateAlbumDto {
+    title: string;
+    artistId: number;
+}

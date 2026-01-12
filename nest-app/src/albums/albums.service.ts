@@ -1,7 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateAlbumDto } from './dto/create-album.dto';
 import { UpdateAlbumDto } from './dto/update-album.dto';
-import { Repository } from 'typeorm';
+import { Like, Repository } from 'typeorm';
 import { Album } from './entities/album.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 
@@ -13,29 +13,49 @@ export class AlbumsService {
   ) {}
 
   create(createAlbumDto: CreateAlbumDto) {
-    return 'This action adds a new album';
+    const album = this.albumRepository.create(createAlbumDto);
+    return this.albumRepository.save(album);
   }
 
-  findAll() {
-    return this.albumRepository.find({relations: ['artist']});
+  async findAll() {
+    return await this.albumRepository.find({ relations: ['artist'] });
   }
 
-  // findByArtist(artistId: number) {
-  //   return this.albumRepository.find({
-  //     where: { artist: { artistId: artistId } },
-  //     relations: ['artist'],
-  //   });
-  // }
+  async search(name: string) {
+    console.log('Searching albums with name:', name);
+    return await this.albumRepository.find({
+      where: { title: Like(`%${name}%`) },
+      relations: ['artist'],
+    });
+  }
 
   findOne(id: number) {
-    return `This action returns a #${id} album`;
+    return this.albumRepository.findOne({
+      where: { albumId: id },
+      relations: ['artist'],
+    });
   }
 
-  update(id: number, updateAlbumDto: UpdateAlbumDto) {
-    return `This action updates a #${id} album`;
+  async update(id: number, dto: UpdateAlbumDto) {
+    const album = await this.albumRepository.findOne({
+      where: { albumId: id },
+    });
+
+    if (!album) {
+      throw new NotFoundException('Album not found');
+    }
+
+    if (dto.title !== undefined) {
+      album.title = dto.title;
+    }
+    if (dto.artistId !== undefined) {
+      album.artistId = dto.artistId;
+    }
+
+    return await this.albumRepository.save(album);
   }
 
   remove(id: number) {
-    return `This action removes a #${id} album`;
+    return this.albumRepository.delete(id);
   }
 }

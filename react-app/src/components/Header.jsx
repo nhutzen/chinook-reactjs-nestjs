@@ -21,8 +21,8 @@ const AppHeader = () => {
       label: <Link to="/about">About</Link>,
     },
     {
-        key: "google",
-        label: (<a href="https://www.google.com" target="_blank" rel="noopener noreferrer">Google</a>)
+        key: "antd",
+        label: (<a href="https://ant.design/components/overview/" target="_blank" rel="noopener noreferrer">Ant Design Component</a>)
     }
   ];
 

@@ -3,6 +3,7 @@ import { message, Card, Typography, Button } from "antd";
 import ArtistTable from "./components/ArtistTable"; // Import component bạn vừa viết
 import artistApi from "../../api/artistApi"; // Giả định bạn đã có file này
 import SaveModel from "./components/SaveModel";
+import SearchComponent from "../../components/Search";
 
 const { Title } = Typography;
 
@@ -50,7 +51,7 @@ const ArtistPage = () => {
           message.error("Không tìm thấy ID nghệ sĩ!");
           return;
         }
-        
+
         await artistApi.update(id, values);
 
         message.success("Cập nhật nghệ sĩ thành công");
@@ -70,30 +71,50 @@ const ArtistPage = () => {
     setIsModalVisible(true);
   };
 
+  const handleSearch = async (value) => {
+    // Nếu không có giá trị tìm kiếm, nạp lại toàn bộ danh sách
+    if (!value || value.trim() === "") {
+      return fetchArtists();
+    }
+    
+    setLoading(true);
+    try {
+      const response = await artistApi.search(value);
+      setArtists(response.data);
+    } catch (error) {
+      message.error("Tìm kiếm nghệ sĩ thất bại!" + error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <Card style={{ width: "100%", marginTop: 20 }}>
-      <Title level={2}>Quản lý Nghệ sĩ (Chinook)</Title>
-      <Button
-        style={{ margin: "10px 0" }}
-        type="primary"
-        onClick={() => showModel(null)}
-      >
-        Add Artist
-      </Button>
-      <ArtistTable
-        data={artists}
-        loading={loading}
-        onEdit={(record) => showModel(record)}
-        editingArtist={editingArtist}
-        onDelete={handleDelete}
-      />
-      <SaveModel
-        onSave={handleSave}
-        visible={isModalVisible}
-        editingArtist={editingArtist}
-        onCancel={() => setIsModalVisible(false)}
-      />
-    </Card>
+    <>
+      <SearchComponent onSearch={(value) => handleSearch(value)} />
+      <Card style={{ width: "100%", marginTop: 20 }}>
+        <Title level={2}>Quản lý Nghệ sĩ (Chinook)</Title>
+        <Button
+          style={{ margin: "10px 0" }}
+          type="primary"
+          onClick={() => showModel(null)}
+        >
+          Add Artist
+        </Button>
+        <ArtistTable
+          data={artists}
+          loading={loading}
+          onEdit={(record) => showModel(record)}
+          editingArtist={editingArtist}
+          onDelete={handleDelete}
+        />
+        <SaveModel
+          onSave={handleSave}
+          open={isModalVisible}
+          editingArtist={editingArtist}
+          onCancel={() => setIsModalVisible(false)}
+        />
+      </Card>
+    </>
   );
 };
 

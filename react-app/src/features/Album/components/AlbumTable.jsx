@@ -1,4 +1,4 @@
-import { Table,Space, Button } from "antd";
+import { Table, Space, Button } from "antd";
 
 const AlbumTable = ({ data, loading, onEdit, onDelete }) => {
   const columns = [
@@ -17,7 +17,7 @@ const AlbumTable = ({ data, loading, onEdit, onDelete }) => {
     },
     {
       title: "Artist name",
-      dataIndex: ['artist','name'],
+      dataIndex: ["artist", "name"],
       key: "artistId",
       sorter: (a, b) => a.artistId - b.artistId,
     },
@@ -36,13 +36,15 @@ const AlbumTable = ({ data, loading, onEdit, onDelete }) => {
     },
   ];
   return (
-    <Table
-      style={{ width: "100%" }}
-      columns={columns}
-      dataSource={data}
-      loading={loading}
-      rowKey="albumId" // Quan trọng: xác định key duy nhất cho mỗi dòng
-    />
+    <>
+      <Table
+        style={{ width: "100%" }}
+        columns={columns}
+        dataSource={data}
+        loading={loading}
+        rowKey="albumId" // Quan trọng: xác định key duy nhất cho mỗi dòng
+      />
+    </>
   );
 };
 

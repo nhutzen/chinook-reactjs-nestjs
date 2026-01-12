@@ -7,6 +7,11 @@ const artistApi = {
         return axiosClient.get(url);
     },
 
+    search: (name) => {
+        const url = `/artists/search?name=${name}`;
+        return axiosClient.get(url);
+    },
+
     // Lấy chi tiết 1 nghệ sĩ theo ID
     getById: (id) => {
         const url = `/artists/${id}`;
