@@ -17,12 +17,13 @@ const ArtistPage = () => {
   const fetchArtists = async () => {
     setLoading(true);
     try {
-      const response = await artistApi.getAll(); // Gọi qua axiosClient
-      console.log("Mẫu 1 phần tử:", response.data[0]);
-      setArtists(response.data);
-      // eslint-disable-next-line no-unused-vars
+      const response = await artistApi.getAll(); 
+      // SỬA Ở ĐÂY: response bây giờ chính là mảng dữ liệu rồi
+      console.log("Data thực tế:", response); 
+      setArtists(response); // KHÔNG dùng response.data nữa
     } catch (error) {
-      message.error("Không thể tải danh sách nghệ sĩ!");
+      console.error(error);
+      message.error("Không thể tải danh sách!");
     } finally {
       setLoading(false);
     }

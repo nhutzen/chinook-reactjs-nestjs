@@ -1,18 +1,18 @@
 import { Modal, Form, Input } from "antd";
 import { useEffect } from "react";
 
-const SaveModel = ({ visible, onSave, onCancel, editingArtist }) => {
+const SaveModel = ({ open, onSave, onCancel, editingArtist }) => {
   const [form] = Form.useForm();
 
   useEffect(() => {
-    if (visible) {
+    if (open) {
       if (editingArtist) {
         form.setFieldsValue(editingArtist);
       } else {
         form.resetFields();
       }
     }
-  }, [visible, editingArtist, form]);
+  }, [open, editingArtist, form]);
 
   const handleOk = () => {
     form
@@ -28,7 +28,7 @@ const SaveModel = ({ visible, onSave, onCancel, editingArtist }) => {
   return (
     <Modal
       title={editingArtist ? "Edit Artist" : "Add Artist"}
-      open={visible}
+      open={open}
       onCancel={onCancel}
       onOk={handleOk}
       okText="Save"
