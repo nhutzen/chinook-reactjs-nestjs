@@ -17,11 +17,14 @@ const AlbumPage = () => {
     setLoading(true);
     try {
       const response = await albumApi.getAll();
-      console.log("Mẫu 1 phần tử:", response.data[0]);
-      setAlbums(response.data);
+      setAlbums(response);
       // eslint-disable-next-line no-unused-vars
     } catch (error) {
-      message.error("Không thể tải danh sách album!");
+      console.error("Chi tiết lỗi:", error);
+      // Hiện thông báo lỗi cụ thể từ Server hoặc từ Axios
+      const errorMsg =
+        error.response?.data?.message || error.message || "Lỗi không xác định";
+      message.error("Lỗi: " + errorMsg);
     } finally {
       setLoading(false);
     }

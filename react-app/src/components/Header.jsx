@@ -23,6 +23,10 @@ const AppHeader = () => {
     {
         key: "antd",
         label: (<a href="https://ant.design/components/overview/" target="_blank" rel="noopener noreferrer">Ant Design Component</a>)
+    }, 
+    {
+      key: "login",
+      label: <Link to="/login">Login</Link>,
     }
   ];
 

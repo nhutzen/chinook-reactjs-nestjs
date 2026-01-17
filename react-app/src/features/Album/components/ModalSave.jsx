@@ -11,7 +11,7 @@ const ModalSave = ({ editingAlbum, open, onSave, onCancel }) => {
       const fetchArtists = async () => {
         try {
           const response = await artistApi.getAll();
-          const options = response.data.map((artist) => {
+          const options = response.map((artist) => {
             return {
               label: artist.name,
               value: artist.artistId || artist.ArtistId,
